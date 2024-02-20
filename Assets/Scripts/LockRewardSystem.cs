@@ -6,12 +6,12 @@ using Random = UnityEngine.Random;
 
 public class LockRewardSystem : MonoBehaviour
 {
-    [SerializeField] private List<LockItemInfo> _items = new List<LockItemInfo>();
+    [SerializeField] private List<LockItemInfo> _rewardItems = new List<LockItemInfo>();
     [SerializeField] private ChooseSystem chooseSystem;
     [SerializeField] private Button[] buttons;
     private int itemId;
     private int key = 0;
-    public int maxKeys = 3;
+    public int maxKeys = 12;
     private void Start()
     {
         for(int i = 0; i <= buttons.Length; i++) 
@@ -24,10 +24,10 @@ public class LockRewardSystem : MonoBehaviour
     {
         if(key <maxKeys)
         {
-            itemId = Random.Range(0, _items.Count);
+            itemId = Random.Range(0, _rewardItems.Count);
             buttons[id].interactable = false;
-            Sprite imgSprite = buttons[id].GetComponent<Image>().sprite = _items[itemId].Image;
-            chooseSystem.Fillitem(_items[itemId].itemId, imgSprite);
+            Sprite imgSprite = buttons[id].GetComponent<Image>().sprite = _rewardItems[itemId].Image;
+            chooseSystem.Fillitem(_rewardItems[itemId].itemId, imgSprite);
 
         }
         key++;
@@ -45,15 +45,7 @@ public class LockItemInfo
     public int value;
 }
 
-[Serializable]
-public class RewardItem
-{
-    public int value;
-    public int itemId;
-    public string name;
-    public Sprite image;
-    public int recievedCount;
-}
+
 
 [Serializable]
 public class ChestHolder
